@@ -3,12 +3,12 @@
     <section @click="playlist_song_clicked">
       <h3>{{ song_name }}</h3>
       <h3>{{ song_artist }}</h3>
-      <h3>{{ song_id }}</h3>
     </section>
   </div>
 </template>
 
 <script>
+// Same as the songlist page, we display our data sent to us from the parent above, and we also send data back to the parent when the object(song) is clicked. Im fairly certain this is how it works.
 export default {
   name: "play-list",
   methods: {
