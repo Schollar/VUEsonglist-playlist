@@ -1,7 +1,7 @@
 <template>
   <section @click="song_clicked">
-    <h1>{{ song_name }}</h1>
-    <h1>{{ song_artist }}</h1>
+    <h3>{{ song_name }}</h3>
+    <h3>{{ song_artist }}</h3>
   </section>
 </template>
 
@@ -10,7 +10,7 @@ export default {
   name: "song-list",
   methods: {
     song_clicked() {
-      this.$emit("song_clicked", this.song_selected);
+      this.$emit("songlist_clicked", this.song_selected);
     },
   },
   props: {
