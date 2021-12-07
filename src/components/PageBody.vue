@@ -5,9 +5,7 @@
     <song-list
       v-for="song in song_list"
       :key="song.song_id"
-      :song_artist="song.song_artist"
-      :song_name="song.song_name"
-      :song_id="song.song_id"
+      :song="song"
       @songlist_clicked="song_was_clicked"
     ></song-list>
     <h1>PLAY LIST</h1>
@@ -15,9 +13,7 @@
     <play-list
       v-for="user_song in user_song_list"
       :key="user_song.song_id"
-      :song_id="user_song.song_id"
-      :song_name="user_song.song_name"
-      :song_artist="user_song.song_artist"
+      :song="user_song"
       @playlist_song_clicked="playlist_song_clicked"
     ></play-list>
   </div>
@@ -32,15 +28,15 @@ export default {
     // Pushing the song clicked to the songlist array, and calling our remove playlist song function
     playlist_song_clicked(payload) {
       this.song_list.push(payload);
-      this.remove_playlist_song(payload);
+      this.remove_song(payload, this.user_song_list);
     },
     // Here we grab our song id that was clicked, and then we loop through the user song list and
     // check for a match in the user_song_list, if a match is found we remove the song from the user song list array
-    remove_playlist_song(ob) {
+    remove_song(ob, arr) {
       var playlist_song_id_selected = ob.song_id;
-      for (var i = 0; i < this.user_song_list.length; i++) {
-        if (playlist_song_id_selected === this.user_song_list[i].song_id) {
-          this.user_song_list.splice(i, 1);
+      for (var i = 0; i < arr.length; i++) {
+        if (playlist_song_id_selected === arr[i].song_id) {
+          arr.splice(i, 1);
         }
       }
     },
@@ -49,15 +45,7 @@ export default {
     // Once you can start wrapping your head around what your data is, where its coming from, how to manipulate it and send it back, I think vue can be super powerful.
     song_was_clicked(payload) {
       this.user_song_list.push(payload);
-      this.remove_song_songlist(payload);
-    },
-    remove_song_songlist(ob) {
-      var song_id_selected = ob.song_id;
-      for (var i = 0; i < this.song_list.length; i++) {
-        if (song_id_selected === this.song_list[i].song_id) {
-          this.song_list.splice(i, 1);
-        }
-      }
+      this.remove_song(payload, this.song_list);
     },
   },
   data() {
